@@ -9,16 +9,20 @@ fi
 
 dir=`echo $1 | sed -ne 's/.*\/\(.*\)\/\(.*\)/\1_-_\2/p'`
 
-wget $1 -O album.tmp
+echo -n "Getting download files..."
+wget -q -O album.tmp $1
 files=`cat album.tmp | grep mp3 | sed -ne 's/.*\(http:\/\/freedownloads\.last\.fm\/download\/.*\.mp3\).*/\1/p'`
+echo " done!"
 
 for i in $files; do
   echo -n "Downloading $i..."
-  wget -P $dir -q $i
+  wget -P $dir -o name.tmp $i
+  oldname=`awk 'NR==6' name.tmp | sed -ne 's/.*\/\(.*\.mp3\).*/\1/p'`
+  trck=`id3v2 -l "$dir/$oldname" | grep TRCK | awk '{ print $6 }'` && mv "$dir/$oldname" "$dir/${trck}_-_${oldname}"
   echo " done!"
 done
 
-rm album.tmp
+rm album.tmp name.tmp
 
 echo -e "\nFinished getting the full album!"
 exit 0;

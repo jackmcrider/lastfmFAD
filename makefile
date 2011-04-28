@@ -4,5 +4,5 @@ INAME = lastfmfad
 install : $(IDIR)/$(INAME)
 
 $(IDIR)/$(INAME) : $(INAME)
-	@echo "Installing lastfmFAD..."
-	@install $+ $@ && echo "...done!"
+	@echo -n "Installing lastfmFAD..."
+	@install $+ $@ && echo " done!"

@@ -1,0 +1,23 @@
+-----------------------------------------
+LASTFMFAD - last.fm free album downloader
+-----------------------------------------
+
+ABOUT
+-----
+lastfmFAD is a little tool to download full free albums from last.fm.
+On the website you have to download every single track by clicking on [free download]. With lastfmFAD you can download the whole album with one command.
+
+USAGE
+-----
+You are surfing on last.fm, maybe on a netlabels page and find a free downloadable album.
+Take the albums URL, go into your commandline and do
+  lastfmfad 'url'
+lastfmFAD will create a now directory in your working directory, called "[artist]_-_[album]" and will download all album files into it.
+Don't forget to set the url into quote marks!
+
+INSTALL
+-------
+To install the script to /usr/bin just do
+  sudo make install
+
+You can also use the script file ./lastfmfad to download albums without having it installed to /usr/bin.
