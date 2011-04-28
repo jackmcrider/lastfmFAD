@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [[ $1 == "" ]]; then
+  echo "usage: $0 URL"
+  echo ""
+  echo -e "  URL\tlast.fm album url (e.c. http://www.lastfm.de/music/___dRE%C3%A0g%C3%A4nN||||||/Loliphilia)"
+  exit 0;
+fi
+
+dir=`echo $1 | sed -ne 's/.*\/\(.*\)\/\(.*\)/\1_-_\2/p'`
+
+wget $1 -O album.tmp
+files=`cat album.tmp | grep mp3 | sed -ne 's/.*\(http:\/\/freedownloads\.last\.fm\/download\/.*\.mp3\).*/\1/p'`
+
+for i in $files; do
+  echo -n "Downloading $i..."
+  wget -P $dir -q $i
+  echo " done!"
+done
+
+rm album.tmp
+
+echo -e "\nFinished getting the full album!"
+exit 0;
